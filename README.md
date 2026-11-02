@@ -2,12 +2,12 @@
 
 **CSC-334: Parallel and Distributed Computing**
 
-A weak client laptop sends a video to a remote worker PC (NVIDIA GPU). The worker
+A weak client laptop sends a video to a remote worker PC (Intel GPU). The worker
 transcodes it with **FFmpeg + NVENC (`h264_nvenc`)**, streams live progress back, and
 returns the verified result. Pure Python sockets, no web framework needed.
 
 ```
-CLIENT LAPTOP                                  WORKER PC (NVIDIA GPU)
+CLIENT LAPTOP                                  WORKER PC (Intel GPU)
  CustomTkinter GUI                              server.py daemon
    └─ network.py ── TCP :5050 (CAT6 / Wi-Fi) ──►  listener ─► job queue ─► ffmpeg h264_nvenc
         ▲   PING/HELLO · upload+SHA256 · PROGRESS/LOG/HEARTBEAT · result+SHA256   │
@@ -28,8 +28,8 @@ folder can be copied to its own computer and run standalone.
 
 ## 1. Setup
 
-### Server (the PC with the NVIDIA GPU)
-1. Install the latest **NVIDIA driver** (check with `nvidia-smi` in a terminal).
+### Server (the PC with the Intel GPU)
+1. Install the latest **Intel driver** (check with `nvidia-smi` in a terminal).
 2. Install **Python 3.9+** (tick *"Add to PATH"* on Windows).
 3. Install **FFmpeg** with NVENC (any recent "full" build):
    - Windows: `winget install Gyan.FFmpeg` (or download from gyan.dev and add `bin/` to PATH). Open a *new* terminal and check `ffmpeg -version`.
@@ -82,7 +82,7 @@ New-NetFirewallRule -DisplayName "GPU Offload" -Direction Inbound -Protocol TCP 
 cd server
 python server.py --token mysecret          # token is optional but recommended
 ```
-You should see `GPU: NVIDIA ... | NVENC working: True` and `worker listening on 0.0.0.0:5050`.
+You should see `GPU: Intel ... | NVENC working: True` and `worker listening on 0.0.0.0:5050`.
 Options: `--port`, `--workdir`, `--max-size-gb`, `--require-gpu` (never fall back to CPU).
 
 **Step 2: start the GUI on the client laptop**
@@ -140,7 +140,7 @@ cancelled and the user must resubmit (no job-resume).
 |---|---|
 | `connection refused` | `server.py` not running, wrong IP/port, or firewall blocks 5050 |
 | `timed out` | Cable unplugged / wrong static IP / not on the same subnet. Test with `ping` |
-| `NVENC working: False` | Update NVIDIA driver; use a recent FFmpeg build; server falls back to CPU unless `--require-gpu` |
+| `NVENC working: False` | Update Intel driver; use a recent FFmpeg build; server falls back to CPU unless `--require-gpu` |
 | `ffmpeg not found` | Install FFmpeg and open a **new** terminal so PATH refreshes |
 | `authentication failed` | Token differs between `server.py --token` and the GUI field |
 
