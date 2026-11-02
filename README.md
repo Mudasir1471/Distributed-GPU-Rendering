@@ -2,6 +2,13 @@
 
 **CSC-334: Parallel and Distributed Computing**
 
+## Team
+
+| Role | Member |
+|---|---|
+| Client computer | AHSAN (005) |
+| Server computer | MUDASIR (011) |
+
 A weak client laptop sends a video to a remote worker PC (Intel GPU). The worker
 transcodes it with **FFmpeg + NVENC (`h264_nvenc`)**, streams live progress back, and
 returns the verified result. Pure Python sockets, no web framework needed.
