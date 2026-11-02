@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+client/client_config.json
+*.part
+results.csv
+.venv/

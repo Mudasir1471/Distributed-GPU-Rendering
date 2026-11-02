@@ -1,0 +1,2 @@
+customtkinter>=5.2
+psutil>=5.9      # optional, only used by benchmark.py for CPU utilisation

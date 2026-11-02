@@ -1,0 +1,2 @@
+# Server uses only the Python standard library.
+# External requirement: FFmpeg (with NVENC support) + NVIDIA driver. See README.
